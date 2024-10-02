@@ -25,8 +25,8 @@
 NormalmapPng *normalmap_png_new(void)
 {
     NormalmapPng *npng = malloc(sizeof(NormalmapPng));
-
     memset(npng, 0, sizeof(NormalmapPng));
+    
     npng->info.version = PNG_IMAGE_VERSION;
     return npng;
 }
@@ -42,6 +42,8 @@ NormalmapPng *normalmap_load_png(FILE *fp)
     }
     npng->info.format = PNG_FORMAT_GRAY;
     npng->data = malloc(npng->info.width * npng->info.height);
+    memset(npng->data, 0, npng->info.width * npng->info.height);
+
     if (!png_image_finish_read(&npng->info, NULL, npng->data,
             npng->info.width, NULL))
     {

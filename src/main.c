@@ -99,7 +99,7 @@ int main(int argc, char **argv)
     hpng = normalmap_load_png(fp_in);
     if (!hpng)
         exit(1);
-
+	
     npng = normalmap_convert(hpng, options);
 
     normalmap_save_png(npng, fp_out);

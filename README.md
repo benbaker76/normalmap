@@ -37,7 +37,7 @@ Runtime options
 
 `normalmap --help` shows a summary of the options. Arguments to short (single
 dash, single letter) options should be separated by a space, arguments for long
-options should follow an equals sign wiht no spaces. Here are some details of
+options should follow an equals sign with no spaces. Here are some details of
 each option.
 
 ### --input/-i and --output/-o
@@ -82,8 +82,17 @@ supports it.
 ### --wrap/-w
 
 Use for textures that are usually tiled, so that one pixel beyond the right
-edge is asumed to have the same value as the pixel on the left edge at the same
+edge is assumed to have the same value as the pixel on the left edge at the same
 Y value.
+
+### --tilesize/-z
+
+This option allows you to process the image in tiles of a given size. 
+By default, the entire image is processed as one piece, but when a tile size 
+is provided, the normal map is calculated for each tile independently. This is useful 
+for generating normal maps for tiled textures to avoid artifacts at tile boundaries. 
+For example, if you provide `--tilesize=32`, the image will be processed in 32x32 pixel tiles.
+If you want to process the entire image without tiling, set this option to 0 (which is the default).
 
 ### --tm/-t
 

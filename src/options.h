@@ -32,6 +32,7 @@ typedef struct
     int unsigned_z;
     int normalise;
     int wrap;
+    int tilesize;
 } NormalmapOptions;
 
 NormalmapOptions *normalmap_options_get(int argc, char **argv);

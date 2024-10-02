@@ -67,6 +67,10 @@ static struct poptOption popt_options[] =
         "Use Trackmania format (--xyz=agb)",
         NULL
     },
+    {   "tilesize", 'z', POPT_ARG_INT, 
+        NULL, 0, 
+        "Set the tile size for normal map generation (default is 0 for no tiles)", "TILESIZE"
+    },
     POPT_AUTOHELP
     POPT_TABLEEND
 };
@@ -102,6 +106,7 @@ NormalmapOptions *normalmap_options_get(int argc, char **argv)
 {
     poptContext pc;
     NormalmapOptions *no = malloc(sizeof(NormalmapOptions));
+    memset(no, 0, sizeof(NormalmapOptions));
     char const **alias_argv = malloc(2 * sizeof(char const **));
     struct poptAlias alias_data =
     {
@@ -118,6 +123,7 @@ NormalmapOptions *normalmap_options_get(int argc, char **argv)
     no->scale = 1.0;
     no->unsigned_z = 0;
     no->normalise = 0;
+    no->tilesize = 0;
 
     popt_options[0].arg = &no->input;
     popt_options[1].arg = &no->output;
@@ -126,6 +132,7 @@ NormalmapOptions *normalmap_options_get(int argc, char **argv)
     popt_options[4].arg = &no->scale;
     popt_options[5].arg = &no->unsigned_z;
     popt_options[6].arg = &no->wrap;
+    popt_options[8].arg = &no->tilesize;  // Added tile size argument handling
 
     pc = poptGetContext(PACKAGE_NAME, argc, (const char **) argv,
             popt_options, 0);
@@ -149,7 +156,7 @@ NormalmapOptions *normalmap_options_get(int argc, char **argv)
         no->xyz = strdup("rgb");
     if (!validate_xyz(no->xyz))
     {
-        fprintf(stderr, "Bad value for --xyx: %s\n", no->xyz);
+        fprintf(stderr, "Bad value for --xyz: %s\n", no->xyz);
         exit(1);
     }
 
